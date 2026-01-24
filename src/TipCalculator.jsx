@@ -21,12 +21,14 @@ function TipCalculator() {
       minHeight: '100vh',
       padding: '20px',
       boxSizing: 'border-box',
+      backgroundColor: '#003300',
     }}>
     <div style={{
       width: '90%',
       maxWidth: '500px',
       fontFamily: 'sans-serif',
       fontSize: '1.2rem',
+      textAlign: 'center',
     }}>
       <h2 style={{ fontSize: '2rem', marginBottom: '30px' }}>Tip Calculator</h2>
       <div style={{ marginBottom: '20px' }}>
