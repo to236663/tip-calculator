@@ -3,6 +3,7 @@ import { useState } from 'react';
 function TipCalculator() {
   const [bill, setBill] = useState('');
   const [tipPercent, setTipPercent] = useState('');
+  const [numPeople, setNumPeople] = useState('');
   const [total, setTotal] = useState(null);
 
   const calculateTotal = () => {
@@ -46,6 +47,15 @@ function TipCalculator() {
           type="number"
           value={tipPercent}
           onChange={(e) => setTipPercent(e.target.value)}
+          style={{ display: 'block', width: '100%', padding: '12px', marginTop: '8px', fontSize: '1.1rem', boxSizing: 'border-box' }}
+        />
+      </div>
+      <div style={{ marginBottom: '20px' }}>
+        <label style={{ fontSize: '1.2rem' }}>Number of People:</label>
+        <input
+          type="number"
+          value={numPeople}
+          onChange={(e) => setNumPeople(e.target.value)}
           style={{ display: 'block', width: '100%', padding: '12px', marginTop: '8px', fontSize: '1.1rem', boxSizing: 'border-box' }}
         />
       </div>
