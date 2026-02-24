@@ -5,13 +5,20 @@ function TipCalculator() {
   const [tipPercent, setTipPercent] = useState('');
   const [numPeople, setNumPeople] = useState('');
   const [total, setTotal] = useState(null);
+  const [perPerson, setPerPerson] = useState(null);
 
   const calculateTotal = () => {
     const billAmount = parseFloat(bill);
     const tip = parseFloat(tipPercent);
+    const people = parseInt(numPeople, 10);
     if (isNaN(billAmount) || isNaN(tip)) return;
-    const tipAmount = billAmount * (tip / 100);
-    setTotal((billAmount + tipAmount).toFixed(2));
+    const grandTotal = billAmount + billAmount * (tip / 100);
+    setTotal(grandTotal.toFixed(2));
+    if (!isNaN(people) && people > 0) {
+      setPerPerson((grandTotal / people).toFixed(2));
+    } else {
+      setPerPerson(null);
+    }
   };
 
   return (
@@ -63,9 +70,16 @@ function TipCalculator() {
         Calculate
       </button>
       {total !== null && (
-        <p style={{ marginTop: '25px', fontSize: '1.5rem' }}>
-          Total: <strong>${total}</strong>
-        </p>
+        <div style={{ marginTop: '25px', fontSize: '1.5rem' }}>
+          <p style={{ margin: '0 0 10px' }}>
+            Total: <strong>${total}</strong>
+          </p>
+          {perPerson !== null && (
+            <p style={{ margin: 0 }}>
+              Per Person: <strong>${perPerson}</strong>
+            </p>
+          )}
+        </div>
       )}
     </div>
     </div>
