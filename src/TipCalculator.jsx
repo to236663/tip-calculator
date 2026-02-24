@@ -1,20 +1,33 @@
 import { useState } from 'react';
 
 function TipCalculator() {
-  const [bill, setBill] = useState('');
+  const [billDigits, setBillDigits] = useState('');
   const [tipPercent, setTipPercent] = useState('');
   const [numPeople, setNumPeople] = useState('');
   const [total, setTotal] = useState(null);
   const [perPerson, setPerPerson] = useState(null);
   const [errors, setErrors] = useState({});
 
+  const formatBill = (digits) => {
+    if (!digits) return '';
+    return (parseInt(digits, 10) / 100).toFixed(2);
+  };
+
+  const handleBillChange = (e) => {
+    const digits = e.target.value.replace(/\D/g, '');
+    setBillDigits(digits);
+    setTotal(null);
+    setPerPerson(null);
+    setErrors((prev) => ({ ...prev, bill: undefined }));
+  };
+
   const calculateTotal = () => {
-    const billAmount = parseFloat(bill);
+    const billAmount = billDigits === '' ? NaN : parseInt(billDigits, 10) / 100;
     const tip = parseFloat(tipPercent);
     const people = parseInt(numPeople, 10);
 
     const newErrors = {};
-    if (isNaN(billAmount) || bill === '') newErrors.bill = 'Please enter a valid bill amount.';
+    if (isNaN(billAmount) || billDigits === '') newErrors.bill = 'Please enter a valid bill amount.';
     if (isNaN(tip) || tipPercent === '') newErrors.tip = 'Please enter a valid tip percentage.';
     if (numPeople !== '' && (isNaN(people) || people <= 0 || String(people) !== String(parseFloat(numPeople)))) {
       newErrors.numPeople = 'Number of people must be a whole number greater than zero.';
@@ -39,7 +52,7 @@ function TipCalculator() {
       minHeight: '100vh',
       padding: '20px',
       boxSizing: 'border-box',
-      backgroundColor: '#003300',
+      backgroundColor: '#273b2b',
     }}>
     <div style={{
       width: '90%',
@@ -52,9 +65,10 @@ function TipCalculator() {
       <div style={{ marginBottom: '20px' }}>
         <label style={{ fontSize: '1.2rem' }}>Bill Amount ($):</label>
         <input
-          type="number"
-          value={bill}
-          onChange={(e) => { setBill(e.target.value); setTotal(null); setPerPerson(null); setErrors((prev) => ({ ...prev, bill: undefined })); }}
+          type="text"
+          inputMode="numeric"
+          value={formatBill(billDigits)}
+          onChange={handleBillChange}
           style={{ display: 'block', width: '100%', padding: '12px', marginTop: '8px', fontSize: '1.1rem', boxSizing: 'border-box' }}
         />
         {errors.bill && <p style={{ color: '#ff6b6b', margin: '6px 0 0', fontSize: '0.95rem', textAlign: 'left' }}>{errors.bill}</p>}
