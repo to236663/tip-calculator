@@ -44,7 +44,7 @@ function TipCalculator() {
         <input
           type="number"
           value={bill}
-          onChange={(e) => setBill(e.target.value)}
+          onChange={(e) => { setBill(e.target.value); setTotal(null); setPerPerson(null); }}
           style={{ display: 'block', width: '100%', padding: '12px', marginTop: '8px', fontSize: '1.1rem', boxSizing: 'border-box' }}
         />
       </div>
@@ -53,7 +53,7 @@ function TipCalculator() {
         <input
           type="number"
           value={tipPercent}
-          onChange={(e) => setTipPercent(e.target.value)}
+          onChange={(e) => { setTipPercent(e.target.value); setTotal(null); setPerPerson(null); }}
           style={{ display: 'block', width: '100%', padding: '12px', marginTop: '8px', fontSize: '1.1rem', boxSizing: 'border-box' }}
         />
       </div>
@@ -62,7 +62,7 @@ function TipCalculator() {
         <input
           type="number"
           value={numPeople}
-          onChange={(e) => setNumPeople(e.target.value)}
+          onChange={(e) => { setNumPeople(e.target.value); setTotal(null); setPerPerson(null); }}
           style={{ display: 'block', width: '100%', padding: '12px', marginTop: '8px', fontSize: '1.1rem', boxSizing: 'border-box' }}
         />
       </div>
